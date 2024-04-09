@@ -121,10 +121,11 @@ def persist_lines(block_blob_service, append_blob_service, blob_container_name, 
         elif t == 'STATE':
             logger.debug('Setting state to {}'.format(o['value']))
             state = o['value']
-            filename = o['stream'] + '.csv'
+            filename="oi"
+            print(state)
 
             # if currently_syncing == NONE upload file
-            if os.path.exists(parent_dir):
+            if os.path.exists(parent_dir) and filename:
                 for _file in os.listdir(parent_dir):
     
                     file_path = os.path.join(parent_dir, _file)
