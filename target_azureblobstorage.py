@@ -123,19 +123,19 @@ def persist_lines(block_blob_service, append_blob_service, blob_container_name, 
             state = o['value']
 
             # if currently_syncing == NONE upload file
-            # if not state['currently_syncing'] and os.path.exists(parent_dir):
-            for _file in os.listdir(parent_dir):
-
-                file_path = os.path.join(parent_dir, _file)
-
-                block_blob_service.create_blob_from_path(
-                    blob_container_name,
-                    filename,
-                    file_path,
-                    content_settings=ContentSettings(
-                        content_type='application/CSV')
-                )
-                os.remove(file_path)
+            if not state['currently_syncing'] and os.path.exists(parent_dir):
+                for _file in os.listdir(parent_dir):
+    
+                    file_path = os.path.join(parent_dir, _file)
+    
+                    block_blob_service.create_blob_from_path(
+                        blob_container_name,
+                        filename,
+                        file_path,
+                        content_settings=ContentSettings(
+                            content_type='application/CSV')
+                    )
+                    os.remove(file_path)
 
         elif t == 'SCHEMA':
             if 'stream' not in o:
